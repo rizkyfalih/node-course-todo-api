@@ -7,6 +7,13 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client)=> {
     console.log('Connected to MongoDB server');
     const db = client.db('TodoApp')
 
+    db.collection('Todos').find().toArray().then((docs) => {
+        console.log('Todos');
+        console.log(JSON.stringify(docs, undefined, 2));
+    }, (err) => {
+        console.log('Unable to fetch todos', err);
+    });
+
     // db.collection('Todos').find({
     //     _id: new ObjectID('5af6b80ed245ce1c6c11653d')
     // }).toArray().then((docs) => {
@@ -25,13 +32,13 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client)=> {
     //=================================================================
     // Exercise: Query all the same name user from users collection
 
-    db.collection('Users').find({
-        name: "John"
-    }).toArray().then((docs) => {
-        console.log(JSON.stringify(docs, undefined, 2));
-    }, (err) => {
-        console.log('Unable to fetch Users', err);
-    });
+    // db.collection('Users').find({
+    //     name: "John"
+    // }).toArray().then((docs) => {
+    //     console.log(JSON.stringify(docs, undefined, 2));
+    // }, (err) => {
+    //     console.log('Unable to fetch Users', err);
+    // });
 
     //client.close();
 });
