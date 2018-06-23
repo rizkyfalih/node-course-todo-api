@@ -7,7 +7,7 @@ const {User} = require('./../server/models/user');
 // var id = '5b2db8914e35c6f81e45f484';
 
 // if(!ObjectID.isValid(id)){
-//     console.log('ID not valid');
+//     return console.log('ID not valid');
 // }
 
 // Todo.find({
