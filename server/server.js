@@ -57,7 +57,7 @@ app.get('/todos/:id', (req, res) => {
 });
 
 // Create url GET '/todos/:id' with parameter input id to remove a data by id
-app.get('/todos/:id', (req, res) => {
+app.delete('/todos/:id', (req, res) => {
     // get the id
     var id = req.params.id;
 
@@ -67,6 +67,11 @@ app.get('/todos/:id', (req, res) => {
     }
 
     // remove todo by id
+            // success
+            // if no doc, send 404
+            // if doc, send doc back with 200
+        // error
+            // 400 with empty body
     Todo.findByIdAndRemove(id).then((todo) => {
         if (!todo) {
             return res.status(404).send();
@@ -76,11 +81,7 @@ app.get('/todos/:id', (req, res) => {
     }).catch((e) => {
         res.status(400).send();
     });
-        // success
-            // if no doc, send 404
-            // if doc, send doc back with 200
-        // error
-            // 400 with empty body
+
 });
 
 
