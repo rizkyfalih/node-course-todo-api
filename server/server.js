@@ -1,3 +1,4 @@
+const _ = require('lodash');
 var express = require('express'); // Library for create website url
 var bodyParser = require('body-parser'); // Body-Parser for postman
 var {ObjectID} = require('mongodb'); // Library for create database
@@ -84,6 +85,32 @@ app.delete('/todos/:id', (req, res) => {
 
 });
 
+
+app.patch('/todos/:id', (req,res) => {
+    var id = req.params.id;
+    var body = _.pick(req.body, ['text', 'completed']);
+    
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send();
+    }
+
+    if(_.isBoolean(body.completed) && body.completed){
+        body.completedAt = new Date().getTime();
+    } else {
+        body.completed = false;
+        body.completedAt = null;
+    }
+
+    Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
+        if(!todo){
+            return res.status(404).send();
+        }
+
+        res.send({todo});
+    }).catch((e) => {
+        res.status(400).send();
+    })
+});
 
 //=====================================
 app.post('/users',(req, res) => {
