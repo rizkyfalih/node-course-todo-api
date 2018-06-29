@@ -1,3 +1,5 @@
+require('./config/config.js')
+
 const _ = require('lodash');
 var express = require('express'); // Library for create website url
 var bodyParser = require('body-parser'); // Body-Parser for postman
